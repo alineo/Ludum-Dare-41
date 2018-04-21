@@ -8,8 +8,12 @@ public class Game : MonoBehaviour {
 
     private GameObject hitObject;
 
-	// Use this for initialization
-	void Start () {
+    private RaycastHit hit;
+    private Ray ray;
+    private Vector3 fwd;
+
+    // Use this for initialization
+    void Start () {
         player = new Player();
         hitObject = null;
     }
@@ -20,16 +24,15 @@ public class Game : MonoBehaviour {
         if (Input.GetKeyDown("r")) {
             SwitchLight.DoSwitchLight();
 
-            Vector3 fwd = Camera.main.transform.rotation * Vector3.forward;
+            fwd = Camera.main.transform.rotation * Vector3.forward;
             
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position, fwd);
+            ray = new Ray(transform.position, fwd);
             
             // an object was found in the raycast
             if (Physics.Raycast(ray, out hit, 2)) {
                 // the player pick up the object
                 hitObject = hit.collider.gameObject;
-                //Debug.Log("Object " + hitObject.name + " found");
+                Debug.Log("Object " + hitObject.name + " found");
 
                 // the object found is pickable
                 if (hitObject.tag == "pickable") {
@@ -51,10 +54,9 @@ public class Game : MonoBehaviour {
             }
             hitObject = null;
         } else if(Input.GetKeyDown("e")) {
-            Vector3 fwd = Camera.main.transform.rotation * Vector3.forward;
-
-            RaycastHit hit;
-            Ray ray = new Ray(transform.position, fwd);
+            fwd = Camera.main.transform.rotation * Vector3.forward;
+            
+            ray = new Ray(transform.position, fwd);
 
             // an object was found in the raycast
             if (Physics.Raycast(ray, out hit, 2)) {
@@ -64,7 +66,7 @@ public class Game : MonoBehaviour {
 
                 // the object found is pickable
                 if (hitObject.tag == "interactable") {
-                    Debug.Log("interactable object found");
+                    Debug.Log("interactable object " + hitObject.name + " found");
                     //TODO: An information panel which inform that there is a nearby interactable object
                 }
             }
