@@ -18,6 +18,8 @@ public class Game : MonoBehaviour {
 	void Update () {
         // the player try to pick up or drop an object
         if (Input.GetKeyDown("r")) {
+            SwitchLight.DoSwitchLight();
+
             Vector3 fwd = Camera.main.transform.rotation * Vector3.forward;
             
             RaycastHit hit;
