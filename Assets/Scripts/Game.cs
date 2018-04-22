@@ -12,17 +12,23 @@ public class Game : MonoBehaviour {
     private Ray ray;
     private Vector3 fwd;
 
+    // bedside lamp vars
+    private bool bedsideLampOn = false;
+    private GameObject bedsideLamp;
+
     // Use this for initialization
     void Start () {
         player = new Player();
         hitObject = null;
+
+        bedsideLamp = GameObject.Find("BedsideLampLight");
     }
 	
 	// Update is called once per frame
 	void Update () {
         // the player try to pick up or drop an object
         if (Input.GetKeyDown("r")) {
-            SwitchLight.DoSwitchLight();
+            AnimatorSwitchLight.DoSwitchLight();
 
             fwd = Camera.main.transform.rotation * Vector3.forward;
             
@@ -67,10 +73,18 @@ public class Game : MonoBehaviour {
                 // the object found is pickable
                 if (hitObject.tag == "interactable") {
                     Debug.Log("interactable object " + hitObject.name + " found");
+                    if (hitObject.name == "BedsideLamp") {
+                        switchLightBedsideLamps();
+                    }
                     //TODO: An information panel which inform that there is a nearby interactable object
                 }
             }
             hitObject = null;
         }
+    }
+
+    public void switchLightBedsideLamps() {
+        bedsideLampOn = !bedsideLampOn;
+        bedsideLamp.SetActive(bedsideLampOn);
     }
 }

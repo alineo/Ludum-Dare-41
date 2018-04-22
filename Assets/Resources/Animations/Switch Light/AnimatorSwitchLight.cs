@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchLight : MonoBehaviour {
+public class AnimatorSwitchLight : MonoBehaviour {
 
     public GameObject animatorHolder;
     private static Animator anim;
