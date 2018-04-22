@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
@@ -8,8 +10,9 @@ public class Game : MonoBehaviour {
     
     private GameObject hitObject;
 
-    private GameObject robot;
-    private GameObject witch;
+    private static GameObject robot;
+    private static GameObject witch;
+    private static GameObject lavaLight;
 
     private GameObject pile;
     private GameObject torchLamp;
@@ -20,20 +23,33 @@ public class Game : MonoBehaviour {
 
     public static int Level;
 
-    public static bool LevelFinished = false;
-    
+    public static bool LevelFinished;
+
+    private static Text infoText;
+
+    private static GameObject nextLevelButton;
+
     // Use this for initialization
     void Start () {
+        LevelFinished = false;
+        infoText = GameObject.Find("informationText").GetComponent<Text>();
+        nextLevelButton = GameObject.Find("nextLevelButton");
+        nextLevelButton.SetActive(false);
+        GameObject.Find("restartLevelButton").SetActive(false);
+
         player = new Player();
         hitObject = null;
         Level = PlayerPrefs.GetInt("Level");
         Debug.Log("Commencement du niveau " + Level);
 
         robot = GameObject.Find("Robot");
-        //witch = GameObject.Find("witch");
+        witch = GameObject.Find("Witch");
+        lavaLight = GameObject.Find("LavaLight");
         robot.SetActive(false);
-        //witch.SetActive(false);
-        
+        witch.SetActive(false);
+        lavaLight.SetActive(false);
+
+
         pile = GameObject.Find("Pile");
         pile.SetActive(false);
 
@@ -50,15 +66,15 @@ public class Game : MonoBehaviour {
             pile.SetActive(true);
             torchLamp.SetActive(true);
             GameObject.Find("BedsideLamp").transform.gameObject.tag = "Untagged";
-
-            robot.SetActive(true);
-            //witch.SetActive(true);
+            
+            witch.SetActive(true);
         }
         else if (Level == 4) { // witch and robot
             robot.SetActive(true);
-            //witch.SetActive(true);
+            witch.SetActive(true);
         }
         else if (Level == 5) {
+            lavaLight.SetActive(true);
             //TODO: Activate the lava
         }
     }
@@ -97,5 +113,30 @@ public class Game : MonoBehaviour {
             }
             hitObject = null;
         }
+    }
+
+    public static void finishLevel() {
+        LevelFinished = true;
+        AnimatorSwitchLight.TurnOnLight();
+        if (Level == 2 || Level == 4) {
+            robot.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
+            robot.GetComponent<Ennemy_IA>().stop();
+        }
+    }
+
+    public static void Win() {
+        infoText.text = "Youpi vous avez gagné !";
+
+        nextLevelButton.SetActive(true);
+
+    }
+
+    public void nextLevel() {
+        PlayerPrefs.SetInt("Level", Level+1);
+        SceneManager.LoadScene("game");
+    }
+
+    public void restartLevel() {
+        SceneManager.LoadScene("game");
     }
 }

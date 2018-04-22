@@ -12,9 +12,11 @@ public class EnvironnementInteractions : MonoBehaviour
     // bedside lamp vars
     private bool bedsideLampOn = true;
     private GameObject bedsideLamp;
+
     
     void Start() {
         bedsideLamp = GameObject.Find("BedsideLampLight");
+        switchLightBedsideLamps();
     }
 
     void Update() {
@@ -32,23 +34,22 @@ public class EnvironnementInteractions : MonoBehaviour
                     // switch on/off the bedroom's light
                     } else if (c.gameObject.name == "switchBedRoomLamp") {
                         if (Game.Level == 1 || Game.Level == 2) {
-                            AnimatorSwitchLight.DoSwitchLight();
-
-                            if (bedsideLampOn && Game.Level == 1) {
-                                Debug.Log("Yay niveau 1 gagné !");
-                                Game.LevelFinished = true;
-                            }
-                            else if (Game.Level == 2) {
-                                Debug.Log("Yay niveau 2 gagné !");
-                                Game.LevelFinished = true;
+                            if (bedsideLampOn) {
+                                Debug.Log("Yay niveau 1 ou 2 gagné !");
+                                Game.finishLevel();
                             }
                         }
                     } else if (c.gameObject.name == "torchLamp") {
                         if (Game.player.getObjectCarriedName() == "pile") {
-                            Game.LevelFinished = true;
+                            Game.finishLevel();
 
                             Debug.Log("gagné !");
                         }
+
+
+                    } else if (c.gameObject.name == "bed") {
+                        if (Game.LevelFinished)
+                            Game.Win();
                     }
                 }
             }

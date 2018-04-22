@@ -25,7 +25,7 @@ public class mainMenu : MonoBehaviour {
     }
 
     public void startGame() {
-        PlayerPrefs.SetInt("Level", 3);
+        PlayerPrefs.SetInt("Level", 2);
         SceneManager.LoadScene("game");
     }
 

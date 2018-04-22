@@ -18,4 +18,9 @@ public class Ennemy_IA : MonoBehaviour {
     void Update() {
         agent.SetDestination(target.position);
     }
+
+    public void stop() {
+        agent.SetDestination(transform.position);
+        enabled = false;
+    }
 }
