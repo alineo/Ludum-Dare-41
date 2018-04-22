@@ -122,6 +122,13 @@ public class Game : MonoBehaviour {
             robot.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
             robot.GetComponent<Ennemy_IA>().stop();
         }
+
+
+        GameObject.Find("armoire_porte_gauche").GetComponent<Animation>().enabled = false;
+        GameObject.Find("armoire_porte_droite").GetComponent<Animation>().enabled = false;
+
+        GameObject.Find("fenetre_gauche").GetComponent<Animation>().enabled = false;
+        GameObject.Find("fenetre_droite").GetComponent<Animation>().enabled = false;
     }
 
     public static void Win() {
