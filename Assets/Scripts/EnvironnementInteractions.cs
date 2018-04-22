@@ -10,7 +10,7 @@ public class EnvironnementInteractions : MonoBehaviour
     Collider[] hitColliders;
 
     // bedside lamp vars
-    private bool bedsideLampOn = false;
+    private bool bedsideLampOn = true;
     private GameObject bedsideLamp;
     
     void Start() {
@@ -28,23 +28,26 @@ public class EnvironnementInteractions : MonoBehaviour
                 if (Input.GetKeyDown("e")) {
                     // switch on/off the bedside's light
                     if (c.gameObject.name == "BedsideLamp") {
-                        Debug.Log("Click lampe");
-                        switchLightBedsideLamps();
-                        if (Game.Level == 1) {
-                            Debug.Log("Yay niveau 1 gagné !");
-                            Game.LevelFinished = true;
-                        }
+                        if (Game.Level == 1 || Game.Level == 2) switchLightBedsideLamps();
                     // switch on/off the bedroom's light
                     } else if (c.gameObject.name == "switchBedRoomLamp") {
-                         AnimatorSwitchLight.DoSwitchLight();
+                        if (Game.Level == 1 || Game.Level == 2) {
+                            AnimatorSwitchLight.DoSwitchLight();
 
-                        if (bedsideLampOn && Game.Level == 1) {
-                            Debug.Log("Yay niveau 1 gagné !");
-                            Game.LevelFinished = true;
+                            if (bedsideLampOn && Game.Level == 1) {
+                                Debug.Log("Yay niveau 1 gagné !");
+                                Game.LevelFinished = true;
+                            }
+                            else if (Game.Level == 2) {
+                                Debug.Log("Yay niveau 2 gagné !");
+                                Game.LevelFinished = true;
+                            }
                         }
-                        else if (Game.Level == 2) {
-                            Debug.Log("Yay niveau 2 gagné !");
+                    } else if (c.gameObject.name == "torchLamp") {
+                        if (Game.player.getObjectCarriedName() == "pile") {
                             Game.LevelFinished = true;
+
+                            Debug.Log("gagné !");
                         }
                     }
                 }

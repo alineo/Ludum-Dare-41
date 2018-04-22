@@ -26,4 +26,9 @@ public class Player {
     public bool hasObject() {
         return objectCarried != null;
     }
+
+    public string getObjectCarriedName() {
+        if (objectCarried == null) return "null";
+        return objectCarried.name;
+    }
 }

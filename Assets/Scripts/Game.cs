@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
-    Player player;
-
+    public static Player player;
+    
     private GameObject hitObject;
+
+    private GameObject robot;
+    private GameObject witch;
+
+    private GameObject pile;
+    private GameObject torchLamp;
 
     private RaycastHit hit;
     private Ray ray;
@@ -23,19 +29,36 @@ public class Game : MonoBehaviour {
         Level = PlayerPrefs.GetInt("Level");
         Debug.Log("Commencement du niveau " + Level);
 
+        robot = GameObject.Find("Robot");
+        //witch = GameObject.Find("witch");
+        robot.SetActive(false);
+        //witch.SetActive(false);
+        
+        pile = GameObject.Find("Pile");
+        pile.SetActive(false);
+
+        torchLamp = GameObject.Find("TorchLamp");
+        torchLamp.SetActive(false);
+        
         // place the objects for the right level design
-        if (Level == 2) {
+        if (Level == 2) { // robot
             Vector3 pos = GameObject.Find("LightSwitch").transform.position;
             GameObject.Find("LightSwitch").transform.position = new Vector3(pos.x, pos.y + 3, pos.z);
-            // TODO: Activate the robot
+            robot.SetActive(true);
         }
-        else if (Level  == 3) {
-            GameObject.Find("Pile").SetActive(false);
-            //TODO: Activate the witch
+        else if (Level  == 3) { // witch
+            pile.SetActive(true);
+            torchLamp.SetActive(true);
+            GameObject.Find("BedsideLamp").transform.gameObject.tag = "Untagged";
+
+            robot.SetActive(true);
+            //witch.SetActive(true);
         }
-        else if (Level == 4) {
-            //TODO: Activate the robot AND the witch
-        } else if (Level == 5) {
+        else if (Level == 4) { // witch and robot
+            robot.SetActive(true);
+            //witch.SetActive(true);
+        }
+        else if (Level == 5) {
             //TODO: Activate the lava
         }
     }
