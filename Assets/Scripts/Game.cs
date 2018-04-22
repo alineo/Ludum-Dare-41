@@ -33,7 +33,7 @@ public class Game : MonoBehaviour {
             ray = new Ray(transform.position, fwd);
             
             // an object was found in the raycast
-            if (Physics.Raycast(ray, out hit, 2)) {
+            if (Physics.Raycast(ray, out hit, 3)) {
                 // the player pick up the object
                 hitObject = hit.collider.gameObject;
                 Debug.Log("Object " + hitObject.name + " found");
