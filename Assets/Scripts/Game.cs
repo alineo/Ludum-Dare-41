@@ -12,20 +12,36 @@ public class Game : MonoBehaviour {
     private Ray ray;
     private Vector3 fwd;
 
-    // bedside lamp vars
-    /*private bool bedsideLampOn = false;
-    private GameObject bedsideLamp;*/
+    public static int Level;
 
+    public static bool LevelFinished = false;
+    
     // Use this for initialization
     void Start () {
         player = new Player();
         hitObject = null;
+        Level = PlayerPrefs.GetInt("Level");
+        Debug.Log("Commencement du niveau " + Level);
 
-        //bedsideLamp = GameObject.Find("BedsideLampLight");
+        // place the objects for the right level design
+        if (Level == 2) {
+            Vector3 pos = GameObject.Find("LightSwitch").transform.position;
+            GameObject.Find("LightSwitch").transform.position = new Vector3(pos.x, pos.y + 3, pos.z);
+            // TODO: Activate the robot
+        }
+        else if (Level  == 3) {
+            GameObject.Find("Pile").SetActive(false);
+            //TODO: Activate the witch
+        }
+        else if (Level == 4) {
+            //TODO: Activate the robot AND the witch
+        } else if (Level == 5) {
+            //TODO: Activate the lava
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         // the player try to pick up or drop an object
         if (Input.GetKeyDown("r")) {
             fwd = Camera.main.transform.rotation * Vector3.forward;
@@ -57,32 +73,6 @@ public class Game : MonoBehaviour {
                 }
             }
             hitObject = null;
-        }/* else if(Input.GetKeyDown("e")) {
-            fwd = Camera.main.transform.rotation * Vector3.forward;
-            
-            ray = new Ray(transform.position, fwd);
-
-            // an object was found in the raycast
-            if (Physics.Raycast(ray, out hit, 2)) {
-                // the player pick up the object
-                hitObject = hit.collider.gameObject;
-                //Debug.Log("Object " + hitObject.name + " found");
-
-                // the object found is pickable
-                if (hitObject.tag == "interactable") {
-                    Debug.Log("interactable object " + hitObject.name + " found");
-                    if (hitObject.name == "BedsideLamp") {
-                        switchLightBedsideLamps();
-                    }
-                    //TODO: An information panel which inform that there is a nearby interactable object
-                }
-            }
-            hitObject = null;
-        }*/
+        }
     }
-
-    /*public void switchLightBedsideLamps() {
-        bedsideLampOn = !bedsideLampOn;
-        bedsideLamp.SetActive(bedsideLampOn);
-    }*/
 }

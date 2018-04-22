@@ -11,11 +11,15 @@ public class ColliderDetectorInteractable : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Collision");
-        if (!objects.Contains(other.gameObject)) {
-            Debug.Log("Ajout de " + other.gameObject.name + " dans la liste trigger");
-            objects.Add(other.gameObject);
-            if (objects.Count >= 9) Debug.Log("9 objets rangés ! C'est gagné !"); 
+        if (Game.Level == 5) { // only for the 5th level
+            if (!objects.Contains(other.gameObject)) {
+                Debug.Log("Ajout de " + other.gameObject.name + " dans la liste trigger");
+                objects.Add(other.gameObject);
+                if (objects.Count >= 9) {
+                    Debug.Log("9 objets rangés ! C'est gagné !");
+                    Game.LevelFinished = true;
+                }
+            }
         }
     }
 }

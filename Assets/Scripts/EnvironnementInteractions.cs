@@ -30,9 +30,22 @@ public class EnvironnementInteractions : MonoBehaviour
                     if (c.gameObject.name == "BedsideLamp") {
                         Debug.Log("Click lampe");
                         switchLightBedsideLamps();
+                        if (Game.Level == 1) {
+                            Debug.Log("Yay niveau 1 gagné !");
+                            Game.LevelFinished = true;
+                        }
                     // switch on/off the bedroom's light
                     } else if (c.gameObject.name == "switchBedRoomLamp") {
                          AnimatorSwitchLight.DoSwitchLight();
+
+                        if (bedsideLampOn && Game.Level == 1) {
+                            Debug.Log("Yay niveau 1 gagné !");
+                            Game.LevelFinished = true;
+                        }
+                        else if (Game.Level == 2) {
+                            Debug.Log("Yay niveau 2 gagné !");
+                            Game.LevelFinished = true;
+                        }
                     }
                 }
             }
