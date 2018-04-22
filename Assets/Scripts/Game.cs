@@ -13,23 +13,21 @@ public class Game : MonoBehaviour {
     private Vector3 fwd;
 
     // bedside lamp vars
-    private bool bedsideLampOn = false;
-    private GameObject bedsideLamp;
+    /*private bool bedsideLampOn = false;
+    private GameObject bedsideLamp;*/
 
     // Use this for initialization
     void Start () {
         player = new Player();
         hitObject = null;
 
-        bedsideLamp = GameObject.Find("BedsideLampLight");
+        //bedsideLamp = GameObject.Find("BedsideLampLight");
     }
 	
 	// Update is called once per frame
 	void Update () {
         // the player try to pick up or drop an object
         if (Input.GetKeyDown("r")) {
-            AnimatorSwitchLight.DoSwitchLight();
-
             fwd = Camera.main.transform.rotation * Vector3.forward;
             
             ray = new Ray(transform.position, fwd);
@@ -59,7 +57,7 @@ public class Game : MonoBehaviour {
                 }
             }
             hitObject = null;
-        } else if(Input.GetKeyDown("e")) {
+        }/* else if(Input.GetKeyDown("e")) {
             fwd = Camera.main.transform.rotation * Vector3.forward;
             
             ray = new Ray(transform.position, fwd);
@@ -80,11 +78,11 @@ public class Game : MonoBehaviour {
                 }
             }
             hitObject = null;
-        }
+        }*/
     }
 
-    public void switchLightBedsideLamps() {
+    /*public void switchLightBedsideLamps() {
         bedsideLampOn = !bedsideLampOn;
         bedsideLamp.SetActive(bedsideLampOn);
-    }
+    }*/
 }
