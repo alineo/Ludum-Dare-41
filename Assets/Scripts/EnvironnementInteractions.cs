@@ -30,7 +30,12 @@ public class EnvironnementInteractions : MonoBehaviour
                 if (Input.GetKeyDown("e")) {
                     // switch on/off the bedside's light
                     if (c.gameObject.name == "BedsideLamp") {
-                        if (Game.Level == 1 || Game.Level == 2) switchLightBedsideLamps();
+                        if (Game.Level == 1 || Game.Level == 2) {
+                            if (Game.Level == 1) Game.textInformationAnimation("Arg I still can't see..`\nI will go turn on the big light, I don't want to stay alone in the dark...");
+                            else Game.textInformationAnimation("Wow, what is this giant robot ??\n It scares me...");
+                            
+                            switchLightBedsideLamps();
+                        }
                     // switch on/off the bedroom's light
                     } else if (c.gameObject.name == "switchBedRoomLamp") {
                         if (Game.Level == 1 || Game.Level == 2) {

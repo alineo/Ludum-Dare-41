@@ -12,6 +12,7 @@ public class Game : MonoBehaviour {
 
     private static GameObject robot;
     private static GameObject witch;
+    private static GameObject mom;
     private static GameObject lavaLight;
 
     private GameObject pile;
@@ -29,10 +30,15 @@ public class Game : MonoBehaviour {
 
     private static GameObject nextLevelButton;
 
+    private static textInformationAnimation textAnimation;
+    private static RectTransform canvas;
+
     // Use this for initialization
     void Start () {
+        textAnimation = Resources.Load<textInformationAnimation>("Animations/Text/PopupTextHolderObject");
         LevelFinished = false;
         infoText = GameObject.Find("informationText").GetComponent<Text>();
+        canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
         nextLevelButton = GameObject.Find("nextLevelButton");
         nextLevelButton.SetActive(false);
         GameObject.Find("restartLevelButton").SetActive(false);
@@ -44,9 +50,11 @@ public class Game : MonoBehaviour {
 
         robot = GameObject.Find("Robot");
         witch = GameObject.Find("Witch");
+        mom = GameObject.Find("Mom");
         lavaLight = GameObject.Find("LavaLight");
         robot.SetActive(false);
         witch.SetActive(false);
+        mom.SetActive(false);
         lavaLight.SetActive(false);
 
 
@@ -55,25 +63,31 @@ public class Game : MonoBehaviour {
 
         torchLamp = GameObject.Find("TorchLamp");
         torchLamp.SetActive(false);
-        
+
         // place the objects for the right level design
-        if (Level == 2) { // robot
+        if (Level == 1) {
+            textInformationAnimation("Aaah! I had a nightmare, where is the light?\nOh right, on my nightstand, I better turn it on.\n(click 'e' near an object to try to interact with it)");
+        } else if (Level == 2) { // robot
+            textInformationAnimation("Bouhouu, again a nightmare... Let's turn on all the lights again, I don't want to stay in the dark...");
             Vector3 pos = GameObject.Find("LightSwitch").transform.position;
             GameObject.Find("LightSwitch").transform.position = new Vector3(pos.x, pos.y + 3, pos.z);
             robot.SetActive(true);
         }
-        else if (Level  == 3) { // witch
+        else if (Level == 3) { // witch
+            textInformationAnimation("... Again... Oh no, my bedside lamp is broken and the torch is out of battery.\nI have to find new ones. It must be near my toys.\nWhaat, is that a witch ???");
             pile.SetActive(true);
             torchLamp.SetActive(true);
             GameObject.Find("BedsideLamp").transform.gameObject.tag = "Untagged";
-            
+
             witch.SetActive(true);
         }
         else if (Level == 4) { // witch and robot
+            textInformationAnimation("Ho no! Mom told me to clean my room last night but I forgot. Quick, let's hide my toys in my bed.");
             robot.SetActive(true);
             witch.SetActive(true);
         }
         else if (Level == 5) {
+            textInformationAnimation("Wooow ... Am I still dreaming? It's really hot in here. Oh what's that light on top of my cabinet, let's find out!");
             lavaLight.SetActive(true);
             //TODO: Activate the lava
         }
@@ -97,6 +111,7 @@ public class Game : MonoBehaviour {
                 if (hitObject.tag == "pickable") {
                     Debug.Log("pickable object found");
                     if (player.pickObject(hitObject)) {
+                        if (hitObject.name == "pile") textInformationAnimation("Ah finally, I found the battery.\nI should bring them to my torch.");
                         hitObject.SetActive(false);
                         Debug.Log("Object : " + hitObject.name + " picked up");
                     }
@@ -116,6 +131,15 @@ public class Game : MonoBehaviour {
     }
 
     public static void finishLevel() {
+        if (Level == 1) textInformationAnimation("Ah it's much better, now I can get back to sleep !");
+        else if (Level == 2) textInformationAnimation("It was just my robot toy...\nLet's go back in bed before mom comes in.");
+        else if (Level == 3) {
+            textInformationAnimation("Mom : What happened here sweetie ? You ran away from me, is it a bad dream again ?\nYou will clean up your room tomorrow, it's a mess in here.");
+            Vector3 momPos = witch.transform.position;
+            witch.SetActive(false);
+            mom.SetActive(true);
+            mom.transform.position = momPos;
+        }
         LevelFinished = true;
         AnimatorSwitchLight.TurnOnLight();
         if (Level == 2 || Level == 4) {
@@ -145,5 +169,14 @@ public class Game : MonoBehaviour {
 
     public void restartLevel() {
         SceneManager.LoadScene("game");
+    }
+
+    public static void textInformationAnimation(string message) {
+        Debug.Log(message);
+        textInformationAnimation instance = Instantiate(textAnimation);
+        instance.gameObject.SetActive(true);
+        instance.transform.SetParent(canvas, false);
+        instance.transform.SetAsLastSibling();
+        if (message != null) instance.setText(message);
     }
 }
