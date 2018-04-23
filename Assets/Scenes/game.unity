@@ -24248,6 +24248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   robotSounds:
   - {fileID: 8300000, guid: 78d4def52b8f3654da9a89a31d344965, type: 3}
+  - {fileID: 8300000, guid: 1f0cb26e16f573940bfd956e558bf1a0, type: 3}
+  - {fileID: 8300000, guid: 4d6fb219e1707284b906d5a79d673cb6, type: 3}
 --- !u!4 &1203975069
 Transform:
   m_ObjectHideFlags: 0
@@ -26267,7 +26269,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -41674,11 +41676,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - {fileID: 8300000, guid: e8e10d873ec34134b9479b0638db4211, type: 3}
-  - {fileID: 8300000, guid: c8732d3acdf54964f8febb3108cdcb87, type: 3}
+  - {fileID: 8300000, guid: 6205bee5b2799e149b9e8e817b8e7d81, type: 3}
+  - {fileID: 8300000, guid: 7185f6b296855954cad1d05c47d606ef, type: 3}
   - {fileID: 8300000, guid: f243c34d67c4b7e4e9be58bbfdc1acb7, type: 3}
   - {fileID: 8300000, guid: ea12ec6bb6a3dd6439b6ff2474761136, type: 3}
   - {fileID: 8300000, guid: 018ccc72110516e44940ac467354c48e, type: 3}
+  - {fileID: 8300000, guid: c795b751d0e7b3d42a3b9b91ebb6e9f6, type: 3}
+  - {fileID: 8300000, guid: 78242cdabd8837a408635956a5ddc791, type: 3}
 --- !u!1 &2071435821 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1660355178485882, guid: ce34559b82e0cb04486707470d840f20,
