@@ -7,8 +7,8 @@ public class RandomSoundsRobot : MonoBehaviour {
     public AudioClip[] robotSounds;
 
     private AudioSource source;
-    private float lowVolume = .75F;
-    private float highVolume = 1.25F;
+    private float lowVolume = .5F;
+    private float highVolume = 1F;
 
     // Use this for initialization
     void Start() {
@@ -21,7 +21,7 @@ public class RandomSoundsRobot : MonoBehaviour {
 
         while (Game.LevelFinished == false) {
 
-            yield return new WaitForSecondsRealtime(Random.Range(8, 15));
+            yield return new WaitForSecondsRealtime(Random.Range(Game.Level != 4 ? 8 : 13, Game.Level != 4 ? 15 : 25));
 
             float volume = Random.Range(lowVolume, highVolume);
             source.PlayOneShot(robotSounds[Random.Range(0, robotSounds.Length)], volume);
