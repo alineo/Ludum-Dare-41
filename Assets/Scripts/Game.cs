@@ -33,6 +33,9 @@ public class Game : MonoBehaviour {
     private static textInformationAnimation textAnimation;
     private static RectTransform canvas;
 
+    // objects for level 5
+    private GameObject level5GroupObjects;
+
     // Use this for initialization
     void Start () {
         textAnimation = Resources.Load<textInformationAnimation>("Animations/Text/PopupTextHolderObject");
@@ -40,7 +43,9 @@ public class Game : MonoBehaviour {
         infoText = GameObject.Find("informationText").GetComponent<Text>();
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
         nextLevelButton = GameObject.Find("nextLevelButton");
+        level5GroupObjects = GameObject.Find("Level5");
         nextLevelButton.SetActive(false);
+        level5GroupObjects.SetActive(false);
         GameObject.Find("restartLevelButton").SetActive(false);
 
         player = new Player();
@@ -89,7 +94,7 @@ public class Game : MonoBehaviour {
         else if (Level == 5) {
             textInformationAnimation("Wooow ... Am I still dreaming? It's really hot in here. Oh what's that light on top of my cabinet, let's find out!");
             lava.SetActive(true);
-            //TODO: Activate the lava
+            level5GroupObjects.SetActive(true);
         }
     }
 
