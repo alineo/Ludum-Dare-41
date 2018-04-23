@@ -7,6 +7,11 @@ using UnityEngine.UI;
 public class Game : MonoBehaviour {
 
     public static Player player;
+
+    public AudioClip pickSound;
+    public AudioClip dropSound;
+
+    private AudioSource source;
     
     private GameObject hitObject;
 
@@ -50,6 +55,8 @@ public class Game : MonoBehaviour {
         restartLevelButton.SetActive(false);
         level5GroupObjects = GameObject.Find("Level5");
         level5GroupObjects.SetActive(false);
+
+        source = GameObject.Find("Character").GetComponent<AudioSource>();
 
         player = new Player();
         hitObject = null;
@@ -118,6 +125,7 @@ public class Game : MonoBehaviour {
                 // the object found is pickable
                 if (hitObject.tag == "pickable") {
                     Debug.Log("pickable object found");
+                    source.PlayOneShot(pickSound, 1);
                     if (player.pickObject(hitObject)) {
                         if (hitObject.name == "pile") textInformationAnimation("Ah finally, I found the battery.\nI should bring them to my torch.");
                         hitObject.SetActive(false);
@@ -130,6 +138,7 @@ public class Game : MonoBehaviour {
                     hitObject = player.dropObject();
                     if (hitObject != null) {
                         Debug.Log("Object dropped");
+                        source.PlayOneShot(dropSound, 1);
                         hitObject.transform.position = Camera.main.transform.rotation * Vector3.forward*2 + Camera.main.transform.position;
                     }
                 }
