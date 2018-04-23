@@ -21,5 +21,10 @@ public class ColliderDetectorInteractable : MonoBehaviour {
                 }
             }
         }
+        if (Game.Level == 5) {
+            if (other.gameObject.name == "Character") {
+                Game.finishLevel();
+            }
+        }
     }
 }

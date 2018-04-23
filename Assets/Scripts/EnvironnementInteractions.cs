@@ -33,7 +33,7 @@ public class EnvironnementInteractions : MonoBehaviour
                     // switch on/off the bedside's light
                     if (c.gameObject.name == "BedsideLamp") {
                         if (Game.Level == 1 || Game.Level == 2) {
-                            if (Game.Level == 1) Game.textInformationAnimation("Arg I still can't see..`\nI will go turn on the big light, I don't want to stay alone in the dark...");
+                            if (Game.Level == 1) Game.textInformationAnimation("Arg I still can't see...\nI will go turn on the big light, I don't want to stay alone in the dark...");
                             else Game.textInformationAnimation("Wow, what is this giant robot ??\n It scares me...");
                             
                             switchLightBedsideLamps();

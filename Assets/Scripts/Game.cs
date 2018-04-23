@@ -31,6 +31,8 @@ public class Game : MonoBehaviour {
 
     public static bool LevelFinished;
 
+    private static bool actionPossible;
+
     private static Text infoText;
 
     private static GameObject nextLevelButton;
@@ -57,6 +59,8 @@ public class Game : MonoBehaviour {
         level5GroupObjects.SetActive(false);
 
         source = GameObject.Find("Character").GetComponent<AudioSource>();
+
+        actionPossible = false;
 
         player = new Player();
         hitObject = null;
@@ -97,12 +101,12 @@ public class Game : MonoBehaviour {
             witch.SetActive(true);
         }
         else if (Level == 4) { // witch and robot
-            textInformationAnimation("Ho no! Mom told me to clean my room last night but I forgot. Quick, let's hide my toys in my bed.");
+            textInformationAnimation("Ho no! Mom told me to clean my room last night but I forgot.\nQuick, let's hide my toys in my bed.");
             robot.SetActive(true);
             witch.SetActive(true);
         }
         else if (Level == 5) {
-            textInformationAnimation("Wooow ... Am I still dreaming? It's really hot in here. Oh what's that light on top of my cabinet, let's find out!");
+            textInformationAnimation("Wooow... Am I still dreaming? It's really hot in here.\nOh what's that light on top of my cabinet, let's find out!");
             lava.SetActive(true);
             level5GroupObjects.SetActive(true);
         }
@@ -145,6 +149,17 @@ public class Game : MonoBehaviour {
             }
             hitObject = null;
         }
+        else if (Input.GetKeyDown("return")) {
+            if (actionPossible) {
+                Debug.Log("action possible");
+                if (nextLevelButton.activeSelf == true) {
+                    nextLevel();
+                }
+                if (restartLevelButton.activeSelf == true) {
+                    restartLevel();
+                }
+            }
+        }
     }
 
     public static void finishLevel() {
@@ -152,6 +167,14 @@ public class Game : MonoBehaviour {
         else if (Level == 2) textInformationAnimation("It was just my robot toy...\nLet's go back in bed before mom comes in.");
         else if (Level == 3) {
             textInformationAnimation("Mom : What happened here sweetie ? You ran away from me, is it a bad dream again ?\nYou will clean up your room tomorrow, it's a mess in here.");
+        }
+        else if (Level == 4) {
+            textInformationAnimation("This room is so scary at night... I don't want to be here alone anymore.");
+        }
+        else if (Level == 5) {
+            textInformationAnimation("Congratulation ! You braved all the danger.\nYou are a grown man now !");
+            lava.SetActive(false);
+            // return main menu
         }
         LevelFinished = true;
         AnimatorSwitchLight.TurnOnLight();
@@ -174,6 +197,7 @@ public class Game : MonoBehaviour {
 
     public static void Win() {
         nextLevelButton.SetActive(true);
+        actionPossible = true;
     }
 
     public void nextLevel() {
@@ -188,6 +212,7 @@ public class Game : MonoBehaviour {
     public static void Lose() {
         Debug.Log("Joueur touché !");
         restartLevelButton.SetActive(true);
+        actionPossible = true;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         Time.timeScale = 0f;
