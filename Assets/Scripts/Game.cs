@@ -29,6 +29,7 @@ public class Game : MonoBehaviour {
     private static Text infoText;
 
     private static GameObject nextLevelButton;
+    private static GameObject restartLevelButton;
 
     private static textInformationAnimation textAnimation;
     private static RectTransform canvas;
@@ -38,15 +39,17 @@ public class Game : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Time.timeScale = 1f;
         textAnimation = Resources.Load<textInformationAnimation>("Animations/Text/PopupTextHolderObject");
         LevelFinished = false;
         infoText = GameObject.Find("informationText").GetComponent<Text>();
         canvas = GameObject.Find("Canvas").GetComponent<RectTransform>();
         nextLevelButton = GameObject.Find("nextLevelButton");
-        level5GroupObjects = GameObject.Find("Level5");
         nextLevelButton.SetActive(false);
+        restartLevelButton = GameObject.Find("restartLevelButton");
+        restartLevelButton.SetActive(false);
+        level5GroupObjects = GameObject.Find("Level5");
         level5GroupObjects.SetActive(false);
-        GameObject.Find("restartLevelButton").SetActive(false);
 
         player = new Player();
         hitObject = null;
@@ -171,6 +174,14 @@ public class Game : MonoBehaviour {
 
     public void restartLevel() {
         SceneManager.LoadScene("game");
+    }
+
+    public static void Lose() {
+        Debug.Log("Joueur touché !");
+        restartLevelButton.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f;
     }
 
     public static void textInformationAnimation(string message) {
