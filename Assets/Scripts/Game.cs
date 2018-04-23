@@ -185,6 +185,7 @@ public class Game : MonoBehaviour {
         if (Level == 3 || Level == 4) {
             witch.SetActive(false);
             mom.SetActive(true);
+            mom.GetComponent<AudioSource>().PlayOneShot(Resources.Load("Audio/SoundEffects/momVoice") as AudioClip, 1);
         }
 
 
