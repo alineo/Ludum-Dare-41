@@ -13,7 +13,7 @@ public class Game : MonoBehaviour {
     private static GameObject robot;
     private static GameObject witch;
     private static GameObject mom;
-    private static GameObject lavaLight;
+    private static GameObject lava;
 
     private GameObject pile;
     private GameObject torchLamp;
@@ -51,13 +51,13 @@ public class Game : MonoBehaviour {
         robot = GameObject.Find("Robot");
         witch = GameObject.Find("Witch");
         mom = GameObject.Find("Mom");
-        lavaLight = GameObject.Find("LavaLight");
+        lava = GameObject.Find("LavaFloorUp");
         robot.SetActive(false);
         witch.SetActive(false);
         mom.SetActive(false);
+        lava.SetActive(false);
 
-
-
+        
         pile = GameObject.Find("Pile");
         pile.SetActive(false);
 
@@ -88,7 +88,7 @@ public class Game : MonoBehaviour {
         }
         else if (Level == 5) {
             textInformationAnimation("Wooow ... Am I still dreaming? It's really hot in here. Oh what's that light on top of my cabinet, let's find out!");
-            lavaLight.SetActive(true);
+            lava.SetActive(true);
             //TODO: Activate the lava
         }
     }
@@ -135,16 +135,18 @@ public class Game : MonoBehaviour {
         else if (Level == 2) textInformationAnimation("It was just my robot toy...\nLet's go back in bed before mom comes in.");
         else if (Level == 3) {
             textInformationAnimation("Mom : What happened here sweetie ? You ran away from me, is it a bad dream again ?\nYou will clean up your room tomorrow, it's a mess in here.");
-            Vector3 momPos = witch.transform.position;
-            witch.SetActive(false);
-            mom.SetActive(true);
-            mom.transform.position = momPos;
         }
         LevelFinished = true;
         AnimatorSwitchLight.TurnOnLight();
         if (Level == 2 || Level == 4) {
             robot.transform.localScale = new Vector3(0.15f, 0.15f, 0.15f);
             robot.GetComponent<Ennemy_IA>().stop();
+        }
+        if (Level == 3 || Level == 4) {
+            Vector3 momPos = witch.transform.position;
+            witch.SetActive(false);
+            mom.SetActive(true);
+            mom.transform.position = momPos;
         }
 
 
@@ -156,10 +158,7 @@ public class Game : MonoBehaviour {
     }
 
     public static void Win() {
-        infoText.text = "Youpi vous avez gagné !";
-
         nextLevelButton.SetActive(true);
-
     }
 
     public void nextLevel() {

@@ -29,6 +29,11 @@ public class mainMenu : MonoBehaviour {
         SceneManager.LoadScene("game");
     }
 
+    public void startLevel(int level) {
+        PlayerPrefs.SetInt("Level", level);
+        SceneManager.LoadScene("game");
+    }
+
     public void options() {
         Debug.Log("Afficher les options");
     }

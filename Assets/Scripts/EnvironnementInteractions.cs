@@ -13,10 +13,12 @@ public class EnvironnementInteractions : MonoBehaviour
     private bool bedsideLampOn = true;
     private GameObject bedsideLamp;
 
+    private bool messageSwitchShown;
     
     void Start() {
         bedsideLamp = GameObject.Find("BedsideLampLight");
         switchLightBedsideLamps();
+        messageSwitchShown = false;
     }
 
     void Update() {
@@ -56,6 +58,20 @@ public class EnvironnementInteractions : MonoBehaviour
                         if (Game.LevelFinished)
                             Game.Win();
                     }
+                }
+            }
+        }
+
+        // message for when the player get close to the switch when it's very high
+        if (Game.Level == 2 && !messageSwitchShown) {
+            
+            //Debug.Log("test");
+            hitColliders = Physics.OverlapSphere(center, radius * 2);
+
+            foreach (Collider c in hitColliders) {
+                if (c.gameObject.tag == "LightSwitch") {
+                    Game.textInformationAnimation("Why is the light switch so high ?\nI'll have to find something to climb to turn it on or to help me swith it on.");
+                    messageSwitchShown = true;
                 }
             }
         }
