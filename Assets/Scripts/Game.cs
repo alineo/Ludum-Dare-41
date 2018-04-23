@@ -55,7 +55,7 @@ public class Game : MonoBehaviour {
         robot.SetActive(false);
         witch.SetActive(false);
         mom.SetActive(false);
-        lavaLight.SetActive(false);
+
 
 
         pile = GameObject.Find("Pile");
