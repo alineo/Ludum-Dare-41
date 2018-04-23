@@ -70,7 +70,7 @@ public class EnvironnementInteractions : MonoBehaviour
 
             foreach (Collider c in hitColliders) {
                 if (c.gameObject.tag == "LightSwitch") {
-                    Game.textInformationAnimation("Why is the light switch so high ?\nI'll have to find something to climb to turn it on or to help me swith it on.");
+                    Game.textInformationAnimation("Why is the light switch so high ?\nI'll have to find something to climb to turn it on.");
                     messageSwitchShown = true;
                 }
             }

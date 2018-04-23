@@ -7,6 +7,7 @@ TagManager:
   - pickable
   - interactable
   - BedsideLamp
+  - LightSwitch
   layers:
   - Default
   - TransparentFX

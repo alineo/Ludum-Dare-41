@@ -143,10 +143,8 @@ public class Game : MonoBehaviour {
             robot.GetComponent<Ennemy_IA>().stop();
         }
         if (Level == 3 || Level == 4) {
-            Vector3 momPos = witch.transform.position;
             witch.SetActive(false);
             mom.SetActive(true);
-            mom.transform.position = momPos;
         }
 
 
