@@ -163,10 +163,10 @@ public class Game : MonoBehaviour {
     }
 
     public static void finishLevel() {
-        if (Level == 1) textInformationAnimation("Ah it's much better, now I can get back to sleep !");
-        else if (Level == 2) textInformationAnimation("It was just my robot toy...\nLet's go back in bed before mom comes in.");
+        if (Level == 1) textInformationAnimation("Ah it's much better, now I can go back to sleep !");
+        else if (Level == 2) textInformationAnimation("It was just my robot toy...\nLet's go back in my bed before mom comes in.");
         else if (Level == 3) {
-            textInformationAnimation("Mom : What happened here sweetie ? You ran away from me, is it a bad dream again ?\nYou will clean up your room tomorrow, it's a mess in here.");
+            textInformationAnimation("Mom : What happened here sweetie ? You ran away from me.\nYou will clean up your room tomorrow, it's a mess in here.");
         }
         else if (Level == 4) {
             textInformationAnimation("This room is so scary at night... I don't want to be here alone anymore.");
@@ -207,6 +207,10 @@ public class Game : MonoBehaviour {
 
     public void restartLevel() {
         SceneManager.LoadScene("game");
+    }
+
+    public void backMenu() {
+        SceneManager.LoadScene("mainMenu");
     }
 
     public static void Lose() {

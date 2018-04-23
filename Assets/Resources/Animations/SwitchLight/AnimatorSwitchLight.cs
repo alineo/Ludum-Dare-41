@@ -17,7 +17,7 @@ public class AnimatorSwitchLight : MonoBehaviour {
 
         bedroomLamp = GameObject.Find("BedroomLampLight");
         
-        //DoSwitchLight(); // turn off the light at the beginning of the game
+        DoSwitchLight(); // turn off the light at the beginning of the game
     }
 
     public static void DoSwitchLight() {
